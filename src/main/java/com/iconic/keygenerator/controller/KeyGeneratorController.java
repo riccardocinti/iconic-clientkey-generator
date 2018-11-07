@@ -3,6 +3,8 @@ package com.iconic.keygenerator.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,17 +39,17 @@ public class KeyGeneratorController {
 	}
 	
 	@GetMapping(value = "/clients/list")
-	public List<Client> getClients() {
-		return clientRepository.findAll();
+	public ResponseEntity<List<Client>> getClients() {
+		return new ResponseEntity<List<Client>>(clientRepository.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/clients/keys")
-	public List<ClientKey> getClientKeys(){
-		return clientKeyRepository.findAllByOrderByClientAsc();
+	public ResponseEntity<List<ClientKey>> getClientKeys(){
+		return new ResponseEntity<List<ClientKey>>(clientKeyRepository.findAllByOrderByClientAsc(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/clients/subscriptions")
-	public List<Subscription> getSubscriptions(){
-		return subscriptionRepository.findAll();
+	public ResponseEntity<List<Subscription>> getSubscriptions(){
+		return new ResponseEntity<List<Subscription>>(subscriptionRepository.findAll(), HttpStatus.OK);
 	}
 }
